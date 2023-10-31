@@ -1,13 +1,13 @@
 name: Flutter CI
 
 permissions:
-  actions: write
+  actions: read
 
 on: workflow_call
 
 jobs:
   flutter_ci:
-    name: Flutter CI
+    name: Flutter CI Test on Ubuntu latest
     runs-on: [ubuntu-latest]
     env:
       working-directory: ./
@@ -18,8 +18,11 @@ jobs:
         version: [3.13.8]
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: subosito/flutter-action@v2
+      - name: 📚 코드 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🐦 Flutter 환경설정
+        uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ matrix.version }}
           channel: ${{ matrix.channel }}
