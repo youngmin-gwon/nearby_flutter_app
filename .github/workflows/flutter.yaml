@@ -24,18 +24,18 @@ jobs:
           flutter-version: ${{ matrix.version }}
           channel: ${{ matrix.channel }}
 
-      - name: Install dependencies
+      - name: ➕ 의존성 설치
         run: flutter pub get
         working-directory: ${{ env.working-directory }}
 
-      - name: Verify formatting
+      - name: 🎨 코드 포맷팅 확인
         run: dart format --output=none --set-exit-if-changed .
         working-directory: ${{ env.working-directory }}
 
-      - name: Analyze project source
+      - name: 📈 정적 코드 분석
         run: flutter analyze
         working-directory: ${{ env.working-directory }}
 
-      - name: Run tests
+      - name: ✅ 자동화 테스트 분석
         run: flutter test
         working-directory: ${{ env.working-directory }}
