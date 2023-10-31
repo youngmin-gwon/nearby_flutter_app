@@ -7,13 +7,12 @@ on: workflow_call
 
 jobs:
   flutter_ci:
-    name: Flutter source code analyzer on Ubuntu latest
+    name: Flutter source code analyzer on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     env:
       working-directory: ./
     strategy:
       matrix:
-        os: [ubuntu-latest]
         channel: [stable]
         version: [3.13.8]
         include:
@@ -26,13 +25,6 @@ jobs:
     steps:
       - name: 📚 코드 Checkout
         uses: actions/checkout@v4
-
-      - name: 😈 Flutter 캐싱
-        id: cache-flutter
-        uses: actions/cache@v1
-        with:
-          path: ${{ matrix.flutter_path }}
-          key: ${{ runner.os }}-flutter
 
       - name: 🐦 Flutter 환경설정
         uses: subosito/flutter-action@v2
