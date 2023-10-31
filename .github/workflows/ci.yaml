@@ -9,3 +9,5 @@ on: [push, pull_request]
 jobs:
   flutter_ci:
     uses: ./.github/workflows/flutter.yaml
+  spell_check:
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1
