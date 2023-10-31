@@ -8,7 +8,7 @@ on: workflow_call
 jobs:
   flutter_ci:
     name: Flutter source code analyzer on Ubuntu latest
-    runs-on: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
     env:
       working-directory: ./
     strategy:
@@ -16,20 +16,33 @@ jobs:
         os: [ubuntu-latest]
         channel: [stable]
         version: [3.13.8]
+        include:
+          - os: ubuntu-latest
+            flutter_path: /opt/hostedtoolcache/flutter
+          - os: macos-latest
+            flutter_path: /Users/runner/hostedtoolcache/flutter
+      fail-fast: false
 
     steps:
       - name: 📚 코드 Checkout
         uses: actions/checkout@v4
 
-      - name: 🐦 Flutter 환경설정
-        uses: subosito/flutter-action@v2
+      - name: 😈 Flutter 캐싱
+        id: cache-flutter
+        uses: actions/cache@v1
         with:
-          flutter-version: ${{ matrix.version }}
-          channel: ${{ matrix.channel }}
+          path: ${{ matrix.flutter_path }}
+          key: ${{ runner.os }}-flutter
 
-      - name: ➕ 의존성 설치
-        run: flutter pub get
-        working-directory: ${{ env.working-directory }}
+      # - name: 🐦 Flutter 환경설정
+      #   uses: subosito/flutter-action@v2
+      #   with:
+      #     flutter-version: ${{ matrix.version }}
+      #     channel: ${{ matrix.channel }}
+
+      # - name: ➕ 의존성 설치
+      #   run: flutter pub get
+      #   working-directory: ${{ env.working-directory }}
 
       - name: 🎨 코드 포맷팅 확인
         run: dart format --output=none --set-exit-if-changed .

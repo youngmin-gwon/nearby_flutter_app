@@ -1,0 +1,79 @@
+name: Flutter Dependency Cacher Workflow
+
+permissions:
+  actions: read
+
+on: workflow_call
+
+jobs:
+  # Set up Flutter for all other tasks.
+  caching:
+    runs-on: ${{ matrix.os }}
+    env:
+      working-directory: ./
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        version: [3.13.6]
+        channel: [stable]
+        include:
+          - os: ubuntu-latest
+            flutter_path: /opt/hostedtoolcache/flutter
+          - os: macos-latest
+            flutter_path: /Users/runner/hostedtoolcache/flutter
+      fail-fast: false
+
+    steps:
+      - name: 📚 코드 Checkout
+        uses: actions/checkout@v4
+
+      - name: ➕ Flutter 의존성 캐싱
+        uses: actions/cache@v3
+        with:
+          path: ${{ matrix.flutter_path }}
+          key: ${{ runner.os }}-flutter
+
+      - name: 🐦 Flutter 환경설정
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ matrix.version }}
+          channel: ${{ matrix.channel }}
+
+      - name: ➕ 의존성 설치
+        run: flutter pub get
+        working-directory: ${{ env.working-directory }}
+#   # Analyze and test.
+#   analyze-and-test:
+#     runs-on: ${{ matrix.os }}
+#     needs: setup
+
+#     strategy:
+#       matrix:
+#         os: [ubuntu-latest, macos-latest]
+#         include:
+#           - os: ubuntu-latest
+#             flutter_path: /opt/hostedtoolcache/flutter
+#           - os: macos-latest
+#             flutter_path: /Users/runner/hostedtoolcache/flutter
+#       fail-fast: false
+
+#     steps:
+#       - uses: actions/checkout@v1
+#       - name: Cache Flutter
+#         id: cache-flutter
+#         uses: actions/cache@v1
+#         with:
+#           path: ${{ matrix.flutter_path }}
+#           key: ${{ runner.os }}-flutter
+#       - uses: subosito/flutter-action@v1
+#         with:
+#           channel: stable
+#       - name: Analyze and Test
+#         run: |
+#           ./tool/ci.sh
+#       - name: Upload coverage to Codecov
+#         uses: codecov/codecov-action@v1
+#         with:
+#           token: ${{ secrets.CODECOV_TOKEN }}
+#           file: coverage/lcov.info
