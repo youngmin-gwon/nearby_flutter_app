@@ -1,0 +1,45 @@
+name: Flutter CI
+
+permissions:
+  actions: write
+
+on:
+  workflow_call:
+    inputs:
+      os:
+        required: true
+        type: string
+
+jobs:
+  flutter_ci:
+    name: Flutter CI on ${{ inputs.os }}
+    runs-on: ${{ inputs.os }}
+    env:
+      working-directory: ./
+    strategy:
+      matrix:
+        channel: [stable]
+        version: [3.13.8]
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ matrix.version }}
+          channel: ${{ matrix.channel }}
+
+      - name: Install dependencies
+        run: flutter pub get
+        working-directory: ${{ env.working-directory }}
+
+      - name: Verify formatting
+        run: dart format --output=none --set-exit-if-changed .
+        working-directory: ${{ env.working-directory }}
+
+      - name: Analyze project source
+        run: flutter analyze
+        working-directory: ${{ env.working-directory }}
+
+      - name: Run tests
+        run: flutter test
+        working-directory: ${{ env.working-directory }}
