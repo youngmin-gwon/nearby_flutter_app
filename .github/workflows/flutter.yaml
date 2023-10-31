@@ -3,21 +3,17 @@ name: Flutter CI
 permissions:
   actions: write
 
-on:
-  workflow_call:
-    inputs:
-      os:
-        required: true
-        type: string
+on: workflow_call
 
 jobs:
   flutter_ci:
-    name: Flutter CI on ${{ inputs.os }}
-    runs-on: ${{ inputs.os }}
+    name: Flutter CI
+    runs-on: [ubuntu-latest]
     env:
       working-directory: ./
     strategy:
       matrix:
+        os: [ubuntu-latest]
         channel: [stable]
         version: [3.13.8]
 

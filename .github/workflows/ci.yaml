@@ -7,14 +7,5 @@ permissions:
 on: [push, pull_request]
 
 jobs:
-  ci:
-    name: CI on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        channel: [stable]
-        version: [3.13.8]
-    steps:
-      - name: Start Flutter Continuous Integration
-        uses: ./.github/workflows/flutter
+  flutter_ci:
+    uses: ./.github/workflows/flutter.yaml
