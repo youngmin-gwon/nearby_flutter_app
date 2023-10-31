@@ -13,6 +13,8 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
+        channel: [stable]
+        version: [3.13.8]
     steps:
       - name: Start Flutter Continuous Integration
-        uses: ./.github/workflows/flutter.yaml
+        uses: ./.github/workflows/flutter
