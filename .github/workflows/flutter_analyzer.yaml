@@ -1,4 +1,4 @@
-name: Flutter CI
+name: Flutter Analyzer Workflow
 
 permissions:
   actions: read
@@ -7,7 +7,7 @@ on: workflow_call
 
 jobs:
   flutter_ci:
-    name: Flutter CI Test on Ubuntu latest
+    name: Flutter source code analyzer on Ubuntu latest
     runs-on: [ubuntu-latest]
     env:
       working-directory: ./

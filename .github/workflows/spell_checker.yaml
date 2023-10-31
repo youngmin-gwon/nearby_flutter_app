@@ -32,7 +32,7 @@ on:
         default: .
 
 jobs:
-  build:
+  flutter_analyzer:
     defaults:
       run:
         working-directory: ${{inputs.working_directory}}
