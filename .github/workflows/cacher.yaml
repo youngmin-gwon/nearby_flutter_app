@@ -28,11 +28,12 @@ jobs:
       - name: 📚 코드 Checkout
         uses: actions/checkout@v4
 
-      - name: ➕ Flutter 의존성 캐싱
+      - name: ⬇️ Flutter 의존성 캐싱
         uses: actions/cache@v3
         with:
           path: ${{ matrix.flutter_path }}
-          key: ${{ runner.os }}-flutter
+          key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: ${{ runner.os }}-flutter-
 
       - name: 🐦 Flutter 환경설정
         uses: subosito/flutter-action@v2
