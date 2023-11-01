@@ -67,7 +67,7 @@ jobs:
       - name: 🗑️ 캐시 정리
         env:
           hash: ${{ hashFiles('**/pubspec.lock') }}
-          current-branch: ${{ github.head_ref }}
+          current-branch: ${{ github.ref }}
         uses: actions/github-script@v6
         with:
           script: |
