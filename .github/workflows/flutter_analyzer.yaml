@@ -34,7 +34,9 @@ jobs:
           channel: ${{ matrix.channel }}
           cache: true
           cache-path: ${{ matrix.flutter_path }}
-          cache-key: ${{ runner.os }}-flutter-
+          # cache key를 뒤에 pubspec.lock 의 hash 값을 붙어 다음과 같은 방식으로 생성함
+          # e.g.) macOS-flutter-d9b099ad9ddab4d6d09cb8ea3447e6b871cdacd650ff4f02e6fc177afa571fe1
+          cache-key: ${{ runner.os }}-flutter
 
       - name: ➕ 의존성 설치
         run: flutter pub get
