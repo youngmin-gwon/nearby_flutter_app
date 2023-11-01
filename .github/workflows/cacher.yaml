@@ -67,7 +67,7 @@ jobs:
       - name: 🗑️ 캐시 정리
         env:
           hash: ${{ hashFiles('**/pubspec.lock') }}
-          branch: ${{ github.head_ref }}
+          current-branch: refs/heads/${{ github.head_ref }}
         uses: actions/github-script@v6
         with:
           script: |
@@ -75,6 +75,7 @@ jobs:
             const caches = await github.rest.actions.getActionsCacheList({
               owner: context.repo.owner,
               repo: context.repo.repo,
+              ref: ${{ env.current-branch }}
             })
 
             // 각 플랫폼 가상환경(macOS, Linux)에 저장될 cache 이름 목록
