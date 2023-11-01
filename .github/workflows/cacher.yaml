@@ -79,7 +79,7 @@ jobs:
               repo: context.repo.repo,
             })
             for (const cache of caches.data.actions_caches) {
-              console.log(${{ env.hash }});
+              console.log('${{ env.hash }}');
               console.log('${{runner.os}}-flutter-${{ hashFiles('**/pubspec.lock')}}')
               if (cache.key != `${{runner.os}}-flutter-${{ hashFiles('**/pubspec.lock')}}`) {
                 // github.rest.actions.deleteActionsCacheById({
