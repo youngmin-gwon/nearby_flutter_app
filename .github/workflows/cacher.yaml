@@ -64,10 +64,15 @@ jobs:
       - name: 📚 코드 Checkout
         uses: actions/checkout@v4
 
+      - name: 🌴 브랜치 이름 가져오기
+        id: extract_branch
+        shell: bash
+        run: echo "current-branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+
       - name: 🗑️ 캐시 정리
         env:
           hash: ${{ hashFiles('**/pubspec.lock') }}
-          current-branch: ${{ github.head_ref || github.ref_name }}
+          current-branch: ${{ steps.extract_branch.outputs.current-branch }}
         uses: actions/github-script@v6
         with:
           script: |
