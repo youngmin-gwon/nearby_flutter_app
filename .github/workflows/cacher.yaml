@@ -77,7 +77,7 @@ jobs:
         with:
           script: |
             console.log("About to clear");
-            console.log(${{env.current-branch}});
+            console.log(`${{env.current-branch}}`);
             const caches = await github.rest.actions.getActionsCacheList({
               owner: context.repo.owner,
               repo: context.repo.repo,
