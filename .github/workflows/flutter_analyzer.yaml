@@ -13,6 +13,7 @@ jobs:
       working-directory: ./
     strategy:
       matrix:
+        os: [ubuntu-latest, macos-latest]
         channel: [stable]
         version: [3.13.8]
         include:
@@ -26,15 +27,7 @@ jobs:
       - name: 📚 코드 Checkout
         uses: actions/checkout@v4
 
-      - name: 📂 캐싱 불러오기
-        uses: actions/cache/restore@v3
-        id: cache-flutter
-        with:
-          path: ${{ matrix.flutter_path }}
-          key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
-          restore-keys: ${{ runner.os }}-flutter-
-
-      - name: 🐦 Flutter 환경설정
+      - name: 🐦 Flutter 환경설정 (cache 에 있으면 불러오기)
         uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ matrix.version }}
@@ -42,6 +35,10 @@ jobs:
           cache: true
           cache-path: ${{ matrix.flutter_path }}
           cache-key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
+
+      - name: ➕ 의존성 설치
+        run: flutter pub get
+        working-directory: ${{ env.working-directory }}
 
       - name: 🎨 코드 포맷팅 확인
         run: dart format --output=none --set-exit-if-changed .
