@@ -62,14 +62,14 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            console.log("About to clear")
+            console.log("About to clear");
             const caches = await github.rest.actions.getActionsCacheList({
               owner: context.repo.owner,
               repo: context.repo.repo,
             })
             for (const cache of caches.data.actions_caches) {
               let hashCode = ${{ hashFiles('**/pubspec.lock')}};
-              console.log(hashCode)
+              console.log(hashCode);
               console.log('${{runner.os}}-flutter-${{ hashFiles('**/pubspec.lock')}}')
               if (cache.key != `${{runner.os}}-flutter-${{ hashFiles('**/pubspec.lock')}}`) {
                 // github.rest.actions.deleteActionsCacheById({
