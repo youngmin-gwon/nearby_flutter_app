@@ -34,7 +34,7 @@ jobs:
           channel: ${{ matrix.channel }}
           cache: true
           cache-path: ${{ matrix.flutter_path }}
-          cache-key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
+          cache-key: ${{ runner.os }}-flutter-
 
       - name: ➕ 의존성 설치
         run: flutter pub get

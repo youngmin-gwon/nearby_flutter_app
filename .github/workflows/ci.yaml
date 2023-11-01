@@ -6,6 +6,9 @@ permissions:
 on: [push, pull_request]
 
 jobs:
+  cacher:
+    uses: ./.github/workflows/cacher.yaml
+
   flutter_ci:
     uses: ./.github/workflows/flutter_analyzer.yaml
 
