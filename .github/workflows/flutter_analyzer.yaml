@@ -35,10 +35,6 @@ jobs:
           key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
           restore-keys: ${{ runner.os }}-flutter-
 
-      - name: ⬇️ 캐싱 없는 경우 의존성 설치 후 캐시보관
-        if: steps.cache-flutter.outputs.cache-hit != 'true'
-        uses: ./cacher.yaml
-
       # - name: 🐦 Flutter 환경설정
       #   uses: subosito/flutter-action@v2
       #   with:
