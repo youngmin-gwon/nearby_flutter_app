@@ -65,7 +65,7 @@ jobs:
               repo: context.repo.repo,
             })
             for (const cache of caches.data.actions_caches) {
-              console.log(`cache: ${cache}`)
+              console.log(context.workflow)
               // console.log(`cache-key-compared: ${${{runner.os}}-flutter-${{ hashFiles('**/pubspec.lock')}}}`)
               if (cache.key != `${{runner.os}}-flutter-${{ hashFiles('**/pubspec.lock')}}`) {
                 // github.rest.actions.deleteActionsCacheById({
