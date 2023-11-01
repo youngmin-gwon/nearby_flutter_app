@@ -58,7 +58,9 @@ jobs:
       hash: ${{ steps.return-hash.outputs.file-hash}}
     steps:
       - id: return-hash
-        run: echo "file-hash=${{ hashFiles('**/pubspec.lock') }}" >> "$GITHUB_OUTPUT"
+        run: |
+          echo "${{hashFiles('**/pubspec.lock')}}"
+          echo "file-hash=${{ hashFiles('**/pubspec.lock') }}" >> "$GITHUB_OUTPUT"
 
   clear-cache:
     runs-on: ${{ matrix.os }}
