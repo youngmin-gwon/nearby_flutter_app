@@ -58,6 +58,9 @@ jobs:
       matrix:
         os: [ubuntu-latest]
     steps:
+      - name: 📚 코드 Checkout
+        uses: actions/checkout@v4
+
       - name: 캐시 정리
         env:
           hash: ${{ hashFiles('**/pubspec.lock') }}
