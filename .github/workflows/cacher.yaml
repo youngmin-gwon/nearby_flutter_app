@@ -68,7 +68,7 @@ jobs:
               repo: context.repo.repo,
             })
             for (const cache of caches.data.actions_caches) {
-              let hashCode = ${{ hashFiles('**/pubspec.lock')}};
+              let hashCode = `${{ hashFiles('**/pubspec.lock') }}`;
               console.log(hashCode);
               console.log('${{runner.os}}-flutter-${{ hashFiles('**/pubspec.lock')}}')
               if (cache.key != `${{runner.os}}-flutter-${{ hashFiles('**/pubspec.lock')}}`) {
