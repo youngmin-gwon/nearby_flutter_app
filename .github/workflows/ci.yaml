@@ -1,7 +1,7 @@
 name: Continuous Integration Workflow
 
 permissions:
-  actions: read
+  actions: write
 
 on: [push, pull_request]
 
