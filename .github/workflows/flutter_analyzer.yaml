@@ -27,23 +27,27 @@ jobs:
       - name: 📚 코드 Checkout
         uses: actions/checkout@v4
 
-      # - name: ⬇️ 캐싱 불러오기
-      #   id: cache-flutter
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: ${{ matrix.flutter_path }}
-      #     key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
-      #     restore-keys: ${{ runner.os }}-flutter-
-
-      - name: 🐦 Flutter 환경설정
-        uses: subosito/flutter-action@v2
+      - name: 📂 캐싱 불러오기
+        uses: actions/cache/restore@v3
+        id: cache-flutter
         with:
-          flutter-version: ${{ matrix.version }}
-          channel: ${{ matrix.channel }}
+          path: ${{ matrix.flutter_path }}
+          key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: ${{ runner.os }}-flutter-
 
-      - name: ➕ 의존성 설치
-        run: flutter pub get
-        working-directory: ${{ env.working-directory }}
+      - name: ⬇️ 캐싱 없는 경우 의존성 설치 후 캐시보관
+        if: steps.cache-flutter.outputs.cache-hit != 'true'
+        uses: ./cacher.yaml
+
+      # - name: 🐦 Flutter 환경설정
+      #   uses: subosito/flutter-action@v2
+      #   with:
+      #     flutter-version: ${{ matrix.version }}
+      #     channel: ${{ matrix.channel }}
+
+      # - name: ➕ 의존성 설치
+      #   run: flutter pub get
+      #   working-directory: ${{ env.working-directory }}
 
       - name: 🎨 코드 포맷팅 확인
         run: dart format --output=none --set-exit-if-changed .

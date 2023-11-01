@@ -15,5 +15,5 @@
     }
   ],
   "useGitignore": true,
-  "words": ["subosito", "cacher", "hostedtoolcache"]
+  "words": ["subosito", "cacher", "hostedtoolcache", "codecov", "CODECOV", "pubspec"]
 }
