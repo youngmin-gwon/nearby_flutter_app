@@ -13,7 +13,6 @@ jobs:
       working-directory: ./
     strategy:
       matrix:
-        os: [ubuntu-latest]
         channel: [stable]
         include:
           - os: ubuntu-latest
