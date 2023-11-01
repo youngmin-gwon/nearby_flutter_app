@@ -76,11 +76,11 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
             })
-            console.log(caches)
 
             // 각 플랫폼 가상환경(macOS, Linux)에 저장될 cache 이름 목록
             const targetCaches = [`macOS-flutter-${{ env.hash }}`, `Linux-flutter-${{ env.hash }}`]
             for (const cache of caches.data.actions_caches) {
+              console.log(cache)
               // 새로 저장되어야할 cache 이름이 아닌 경우 삭제
               if (!targetCaches.includes(cache.key)) {
                 console.log(`target cache to delete: ${cache.key}`)
