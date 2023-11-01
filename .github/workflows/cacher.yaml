@@ -52,13 +52,24 @@ jobs:
   #       run: flutter pub get
   #       working-directory: ${{ env.working-directory }}
 
+  return-key-hash:
+    runs-on: ubuntu-latest
+    outputs:
+      hash: ${{ steps.return-hash.outputs.file-hash}}
+    steps:
+      - id: return-hash
+        run: echo "file-hash=${{ hashFiles('**/pubspec.lock') }}" >> "$GITHUB_OUTPUT"
+
   clear-cache:
     runs-on: ${{ matrix.os }}
+    needs: return-key-hash
     strategy:
       matrix:
         os: [ubuntu-latest]
     steps:
       - name: 캐시 정리
+        env:
+          hash: ${{ needs.return-key-hash.outputs.hash }}
         uses: actions/github-script@v6
         with:
           script: |
@@ -68,8 +79,7 @@ jobs:
               repo: context.repo.repo,
             })
             for (const cache of caches.data.actions_caches) {
-              let hashCode = `${{ hashFiles('**/pubspec.lock') }}`;
-              console.log(hashCode);
+              console.log(${{ env.hash }});
               console.log('${{runner.os}}-flutter-${{ hashFiles('**/pubspec.lock')}}')
               if (cache.key != `${{runner.os}}-flutter-${{ hashFiles('**/pubspec.lock')}}`) {
                 // github.rest.actions.deleteActionsCacheById({
