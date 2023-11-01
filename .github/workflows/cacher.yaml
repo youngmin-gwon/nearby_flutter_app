@@ -53,7 +53,10 @@ jobs:
   #       working-directory: ${{ env.working-directory }}
 
   clear-cache:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
     steps:
       - name: 캐시 정리
         uses: actions/github-script@v6
@@ -65,7 +68,7 @@ jobs:
               repo: context.repo.repo,
             })
             for (const cache of caches.data.actions_caches) {
-              console.log('${${{runner.os}}-flutter-${{ hashFiles('**/pubspec.lock')}}}')
+              console.log('${{runner.os}}-flutter-${{ hashFiles('**/pubspec.lock')}}')
               // console.log(`cache-key-compared: ${${{runner.os}}-flutter-${{ hashFiles('**/pubspec.lock')}}}`)
               if (cache.key != `${{runner.os}}-flutter-${{ hashFiles('**/pubspec.lock')}}`) {
                 // github.rest.actions.deleteActionsCacheById({
