@@ -6,10 +6,10 @@ permissions:
 on: [push, pull_request]
 
 jobs:
-  spell_check:
-    uses: ./.github/workflows/spell_checker.yaml
   cacher:
     uses: ./.github/workflows/cacher.yaml
   flutter_ci:
     uses: ./.github/workflows/flutter_analyzer.yaml
     needs: cacher
+  spell_check:
+    uses: ./.github/workflows/spell_checker.yaml
