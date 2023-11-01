@@ -6,51 +6,51 @@ permissions:
 on: workflow_call
 
 jobs:
-  cache-check:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
-        version: [3.13.6]
-        channel: [stable]
-        include:
-          - os: ubuntu-latest
-            flutter_path: /opt/hostedtoolcache/flutter
-          - os: macos-latest
-            flutter_path: /Users/runner/hostedtoolcache/flutter
-      fail-fast: false
+  # cache-check:
+  #   runs-on: ${{ matrix.os }}
+  #   strategy:
+  #     matrix:
+  #       os: [ubuntu-latest, macos-latest]
+  #       version: [3.13.6]
+  #       channel: [stable]
+  #       include:
+  #         - os: ubuntu-latest
+  #           flutter_path: /opt/hostedtoolcache/flutter
+  #         - os: macos-latest
+  #           flutter_path: /Users/runner/hostedtoolcache/flutter
+  #     fail-fast: false
 
-    env:
-      working-directory: ./
-    steps:
-      - name: 📚 코드 Checkout
-        uses: actions/checkout@v4
+  #   env:
+  #     working-directory: ./
+  #   steps:
+  #     - name: 📚 코드 Checkout
+  #       uses: actions/checkout@v4
 
-      - name: ☑️ 캐시 있는지 확인하기
-        uses: actions/cache/restore@v3
-        id: cache-flutter
-        with:
-          path: ${{ matrix.flutter_path }}
-          key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
-          restore-keys: ${{ runner.os }}-flutter-
+  #     - name: ☑️ 캐시 있는지 확인하기
+  #       uses: actions/cache/restore@v3
+  #       id: cache-flutter
+  #       with:
+  #         path: ${{ matrix.flutter_path }}
+  #         key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
+  #         restore-keys: ${{ runner.os }}-flutter-
 
-      - name: 😈 캐시 없는 경우 캐시 저장 설정
-        if: steps.cache-flutter.outputs.cache-hit != 'true'
-        uses: actions/cache@v3
-        with:
-          path: ${{ matrix.flutter_path }}
-          key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
-          restore-keys: ${{ runner.os }}-flutter-
+  #     - name: 😈 캐시 없는 경우 캐시 저장 설정
+  #       if: steps.cache-flutter.outputs.cache-hit != 'true'
+  #       uses: actions/cache@v3
+  #       with:
+  #         path: ${{ matrix.flutter_path }}
+  #         key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
+  #         restore-keys: ${{ runner.os }}-flutter-
 
-      - name: 🐦 Flutter 환경설정
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ matrix.version }}
-          channel: ${{ matrix.channel }}
+  #     - name: 🐦 Flutter 환경설정
+  #       uses: subosito/flutter-action@v2
+  #       with:
+  #         flutter-version: ${{ matrix.version }}
+  #         channel: ${{ matrix.channel }}
 
-      - name: ➕ 의존성 설치
-        run: flutter pub get
-        working-directory: ${{ env.working-directory }}
+  #     - name: ➕ 의존성 설치
+  #       run: flutter pub get
+  #       working-directory: ${{ env.working-directory }}
 
   clear-cache:
     runs-on: ubuntu-latest
