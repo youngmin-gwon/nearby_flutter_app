@@ -6,55 +6,6 @@ permissions:
 on: workflow_call
 
 jobs:
-  ## flutter github-actions 에서 cache 지원하여 사용할 필요가 없어짐
-  # check-cache:
-  #   runs-on: ${{ matrix.os }}
-  #   strategy:
-  #     matrix:
-  #       version: [3.13.6]
-  #       channel: [stable]
-  #       include:
-  #         - os: ubuntu-latest
-  #           flutter_path: /opt/hostedtoolcache/flutter
-  #         - os: macos-latest
-  #           flutter_path: /Users/runner/hostedtoolcache/flutter
-  #     fail-fast: false
-
-  #   env:
-  #     working-directory: ./
-  #   steps:
-  #     - name: 📚 코드 Checkout
-  #       uses: actions/checkout@v4
-
-  #     - name: ☑️ 캐시 있는지 확인하기
-  #       uses: actions/cache/restore@v3
-  #       id: cache-flutter
-  #       with:
-  #         path: ${{ matrix.flutter_path }}
-  #         key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
-  #         restore-keys: ${{ runner.os }}-flutter-
-  #         lookup-only: true
-
-  #     - name: 😈 캐시 없는 경우 캐시 저장 설정
-  #       if: steps.cache-flutter.outputs.cache-hit != 'true'
-  #       uses: actions/cache@v3
-  #       with:
-  #         path: ${{ matrix.flutter_path }}
-  #         key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
-  #         restore-keys: ${{ runner.os }}-flutter-
-
-  #     - name: 🐦 Flutter 환경설정
-  #       if: steps.cache-flutter.outputs.cache-hit != 'true'
-  #       uses: subosito/flutter-action@v2
-  #       with:
-  #         flutter-version: ${{ matrix.version }}
-  #         channel: ${{ matrix.channel }}
-
-  #     - name: ➕ 의존성 설치
-  #       if: steps.cache-flutter.outputs.cache-hit != 'true'
-  #       run: flutter pub get
-  #       working-directory: ${{ env.working-directory }}
-
   ## 현재 branch 에서 pubspec.lock 값과 맞는 cache 만 남기고 나머지 삭제
   clear-cache:
     runs-on: ${{ matrix.os }}
@@ -87,7 +38,6 @@ jobs:
             // 각 플랫폼 가상환경(macOS, Linux)에 저장될 cache 이름 목록
             const targetCaches = [`macOS-flutter-${{ env.hash }}`, `Linux-flutter-${{ env.hash }}`]
             for (const cache of caches.data.actions_caches) {
-              console.log(cache)
               // 현재 버전에 맞는 cache 이름이 아닌 경우 삭제
               if (!targetCaches.includes(cache.key)) {
                 console.log(`target cache to delete: ${cache.key}`)
