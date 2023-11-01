@@ -41,10 +41,9 @@ jobs:
         with:
           flutter-version: ${{ matrix.version }}
           channel: ${{ matrix.channel }}
-
-      - name: ➕ 의존성 설치
-        run: flutter pub get
-        working-directory: ${{ env.working-directory }}
+          cache: true
+          cache-path: ${{ matrix.flutter_path }}
+          cache-key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
 
       - name: 🎨 코드 포맷팅 확인
         run: dart format --output=none --set-exit-if-changed .

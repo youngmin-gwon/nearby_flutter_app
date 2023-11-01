@@ -33,6 +33,7 @@ jobs:
           path: ${{ matrix.flutter_path }}
           key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
           restore-keys: ${{ runner.os }}-flutter-
+          lookup-only: true
 
       - name: 😈 캐시 없는 경우 캐시 저장 설정
         if: steps.cache-flutter.outputs.cache-hit != 'true'
@@ -43,12 +44,14 @@ jobs:
           restore-keys: ${{ runner.os }}-flutter-
 
       - name: 🐦 Flutter 환경설정
+        if: steps.cache-flutter.outputs.cache-hit != 'true'
         uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ matrix.version }}
           channel: ${{ matrix.channel }}
 
       - name: ➕ 의존성 설치
+        if: steps.cache-flutter.outputs.cache-hit != 'true'
         run: flutter pub get
         working-directory: ${{ env.working-directory }}
 
