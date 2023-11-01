@@ -75,13 +75,13 @@ jobs:
 
             const targetCaches = [`macOS-flutter-${{ env.hash }}`, `Linux-flutter-${{ env.hash }}`]
             for (const cache of caches.data.actions_caches) {
-              if (targetCaches.includes(cache.key)) {
-                console.log("exist!")
-                // github.rest.actions.deleteActionsCacheById({
-                //   owner: context.repo.owner,
-                //   repo: context.repo.repo,
-                //   cache_id: cache.id,
-                // })
+              if (!targetCaches.includes(cache.key)) {
+                console.log(`target cache to delete: ${cache.key}`)
+                github.rest.actions.deleteActionsCacheById({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  cache_id: cache.id,
+                })
               }
             }
             console.log("Clear completed")
