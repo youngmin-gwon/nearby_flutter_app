@@ -15,7 +15,6 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest]
         channel: [stable]
-        version: [3.13.8]
         include:
           - os: ubuntu-latest
             flutter_path: /opt/hostedtoolcache/flutter
@@ -30,7 +29,6 @@ jobs:
       - name: 🐦 Flutter 환경설정 (cache 에 있으면 불러오기)
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: ${{ matrix.version }}
           channel: ${{ matrix.channel }}
           cache: true
           cache-path: ${{ matrix.flutter_path }}
