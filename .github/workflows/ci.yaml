@@ -9,8 +9,8 @@ jobs:
   cacher:
     uses: ./.github/workflows/cacher.yaml
 
-  flutter_ci:
+  flutter_code_checker:
     uses: ./.github/workflows/flutter_analyzer.yaml
 
-  spell_check:
+  spell_checker:
     uses: ./.github/workflows/spell_checker.yaml
