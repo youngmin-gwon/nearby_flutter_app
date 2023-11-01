@@ -72,9 +72,11 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
             })
+
+            const targetCaches = [`macOS-flutter-${{ env.hash }}`, `Linux-flutter-${{ env.hash }}`]
             for (const cache of caches.data.actions_caches) {
-              console.log('${{ env.hash }}');
-              if (cache.key != `${{runner.os}}-flutter-${{ hashFiles('**/pubspec.lock')}}`) {
+              if (targetCaches.includes(cache.key)) {
+                console.log("exist!")
                 // github.rest.actions.deleteActionsCacheById({
                 //   owner: context.repo.owner,
                 //   repo: context.repo.repo,
