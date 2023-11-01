@@ -81,7 +81,7 @@ jobs:
             const caches = await github.rest.actions.getActionsCacheList({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: `${{ env.current-branch }}`
+              ref: `refs/heads/${{ env.current-branch }}`
             })
 
             // 각 플랫폼 가상환경(macOS, Linux)에 저장될 cache 이름 목록
