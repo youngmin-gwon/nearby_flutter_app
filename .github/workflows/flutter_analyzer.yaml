@@ -13,12 +13,13 @@ jobs:
       working-directory: ./
     strategy:
       matrix:
+        # os: [ubuntu-latest]
         channel: [stable]
         include:
           - os: ubuntu-latest
             flutter_path: /opt/hostedtoolcache/flutter
-          - os: macos-latest
-            flutter_path: /Users/runner/hostedtoolcache/flutter
+          # - os: macos-latest
+          #   flutter_path: /Users/runner/hostedtoolcache/flutter
       fail-fast: false
 
     steps:
