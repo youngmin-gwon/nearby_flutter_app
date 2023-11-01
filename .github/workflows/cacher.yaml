@@ -67,11 +67,12 @@ jobs:
       - name: 🗑️ 캐시 정리
         env:
           hash: ${{ hashFiles('**/pubspec.lock') }}
-          current-branch: refs/heads/${{ github.head_ref }}
+          current-branch: ${{ github.head_ref }}
         uses: actions/github-script@v6
         with:
           script: |
             console.log("About to clear");
+            console.log(${{env.current-branch}});
             const caches = await github.rest.actions.getActionsCacheList({
               owner: context.repo.owner,
               repo: context.repo.repo,
