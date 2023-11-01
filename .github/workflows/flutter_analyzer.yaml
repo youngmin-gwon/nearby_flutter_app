@@ -36,6 +36,7 @@ jobs:
           restore-keys: ${{ runner.os }}-flutter-
 
       - name: 🐦 Flutter 환경설정
+        if: steps.cache-flutter.outputs.cache-hit != 'true'
         uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ matrix.version }}
