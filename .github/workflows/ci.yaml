@@ -6,8 +6,8 @@ permissions:
 on: [push, pull_request]
 
 jobs:
-  cacher:
-    uses: ./.github/workflows/cacher.yaml
+  cache_trimmer:
+    uses: ./.github/workflows/cache_prunner.yaml
 
   flutter_code_checker:
     uses: ./.github/workflows/flutter_analyzer.yaml

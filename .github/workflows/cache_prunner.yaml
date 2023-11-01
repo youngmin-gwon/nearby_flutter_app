@@ -1,4 +1,4 @@
-name: Flutter Dependency Cacher Workflow
+name: Cache Prunner Workflow
 
 permissions:
   actions: write
