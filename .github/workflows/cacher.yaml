@@ -6,7 +6,7 @@ permissions:
 on: workflow_call
 
 jobs:
-  cache-check:
+  check-cache:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -64,7 +64,7 @@ jobs:
       - name: 📚 코드 Checkout
         uses: actions/checkout@v4
 
-      - name: 캐시 정리
+      - name: 🗑️ 캐시 정리
         env:
           hash: ${{ hashFiles('**/pubspec.lock') }}
         uses: actions/github-script@v6
