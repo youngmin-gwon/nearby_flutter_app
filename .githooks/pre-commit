@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+printf "\e[33;1m%s\e[0m\n" 'Dart 코드 포맷팅을 시작'
+dart format --output=none --set-exit-if-changed .
+printf "\e[33;1m%s\e[0m\n" 'Dart 코드 포맷팅 완료'
+
+printf "\e[33;1m%s\e[0m\n" 'Dart 코드 분석 실행
+Error/Warning 을 해결하지 않은 경우 커밋 할 수 없음'
+dart analyze
+if [[ $? -ne 0 ]]; then
+	printf "\e[31;1m%s\e[0m\n" 'Dart 코드 분석 에러'
+	exit 1
+fi
+printf "\e[33;1m%s\e[0m\n" 'Dart 코드 분석 완료'

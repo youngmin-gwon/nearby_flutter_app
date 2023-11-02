@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# 영문 맞춤법 체크
+
+ASPELL=$(which aspell)
+if [[ $? -ne 0 ]]; then
+	echo "aspell 이 설치되지 않았습니다. 영어 맞춤법 검사를 위해 aspell 을 설치해주세요." >&2
+	exit
+else
+	WORDS=$(${ASPELL} --mode=email --add-email-quote='#' list <"$1" | sort -u)
+fi
+if [[ -n ${WORDS} ]]; then
+	printf "\e[1;33m  Commit message 안에 영문 오타가 있는 것 같습니다.:\n\e[0m\e[0;31m%s\n\e[0m\e[1;33m  다음 명령으로 커밋 메시지를 변경하세요. git commit --amend\e[0m\n\n" "${WORDS}" >&2
+fi
