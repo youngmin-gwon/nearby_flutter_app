@@ -3,7 +3,9 @@ name: Continuous Integration Workflow
 permissions:
   actions: write
 
-on: [push, pull_request]
+on:
+  pull_request:
+    types: [opened, reopened, edited]
 
 jobs:
   cache_trimmer:
