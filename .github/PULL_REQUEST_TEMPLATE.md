@@ -1,23 +1,49 @@
+<!-- 다음은 Issue를 먼저 발행 후 그에 맞춰 일을 처리하는 `Issue 주도 개발 방법`에서 사용할 수 있는 PR template 입니다. -->
+# Pull Request
+
+## 설명
+
 <!--
-  Thanks for contributing!
+무엇에 관한 Pull Request인지 명확하게 작성해주세요.
 
-  Provide a description of your changes below and a general summary in the title
+e.g)
+이 PR에 대한 설명은 다음과 같습니다.
 
-  Please look at the following checklist to ensure that your PR can be accepted quickly:
+- 메인화면 UI 변경
+- 로그아웃 시 사용자에게 다시 한번 확인하는 Modal 추가
 -->
 
-## Description
+이 PR에 대한 설명은 다음과 같습니다.
 
-<!--- Describe your changes in detail -->
+## 관련 이슈
 
-## Type of Change
+<!--
+`closes` 옆에 Issue 번호를 함께 추가하세요. 자동으로 issue를 연결하고 close 해줍니다.
 
-<!--- Put an `x` in all the boxes that apply: -->
+e.g)
+- closes #24
+- closes #25
+- -->
 
-- [ ] ✨ New feature (non-breaking change which adds functionality)
-- [ ] 🛠️ Bug fix (non-breaking change which fixes an issue)
-- [ ] ❌ Breaking change (fix or feature that would cause existing functionality to change)
-- [ ] 🧹 Code refactor
-- [ ] ✅ Build configuration change
-- [ ] 📝 Documentation
-- [ ] 🗑️ Chore
+## 체크리스트
+
+<!--
+PR 제출하기전 다시 한번 확인해볼만한 체크 리스트입니다.
+필요한 경우 체크리스트를 더 추가하세요. 본인 스스로 변경내용에 대해 다시 검토해볼 수 있고, 검토자에게 주의깊게 봐야할 사항을 알려줄 수 있습니다.
+
+e.g)
+- [ ] 📝 bug fix나 feature 추가의 경우 변경 내용을 문서화하였습니다.
+-->
+
+제출한 Pull Request가 다음 사항을 만족하는지 확인해주세요:
+
+- [ ] 😊 커밋 메시지가 변경 내용을 충분히 설명하고 있습니다.
+- [ ] 👮 변경 내용이 규칙(lint rules, business rules 등)을 준수합니다.
+- [ ] 💯 코드를 추가/변경한 경우 기존 테스트를 잘 통과하고, 필요한 경우 적절한 테스트를 작성 하였습니다.
+- [ ] ❗ Breaking Change가 있는 경우, 외부로 노출된 API가 변경되지 않았고, 변경되었다면 migration guide가 있습니다.
+
+## 추가 정보
+
+<!--
+기능에 대한 추가적인 문맥이나, 스크린샷은 여기 추가해주세요.
+-->
