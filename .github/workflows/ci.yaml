@@ -1,57 +1,18 @@
-# Repo의 Actions 탭에 나타날 workflow 이름으로 필수 옵션 아님
-name: Continuous Integration
+name: Continuous Integration Workflow
 
 permissions:
   actions: write
 
-# workflow 실행시키기 위한 Event 목록
 on:
-  # 하단 코드에 따라 main branch에 push event 발생시 workflow 가 실행됨
-  # 만약 브랜치 구분 없이 이벤트 지정하고자 한다면 단순히 아래와 같이 작성도
-  # 가능
-  # on: [push, pull_request]
-  push:
-    branches:
-      - main
   pull_request:
-    branches:
-      - main
+    types: [opened, reopened, edited]
 
-# 해당 Workflow의 하나 이상의 Job 목록
 jobs:
-  # Job 이름, flutter_test라는 이름으로 Job이 표시
-  ci_cd:
-    name: CI on ${{ matrix.os }}
-    # Runner가 실행되는 환경을 정의하는 부분
-    runs-on: ${{ matrix.os }}
-    env:
-      working-directory: ./
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        channel: [stable]
-        version: [3.13.8]
-    # test Job 내의 step 목록
-    steps:
-      # Set up flutter
-      - uses: actions/checkout@v4
-      - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ matrix.version }}
-          channel: ${{ matrix.channel }}
+  cache_trimmer:
+    uses: ./.github/workflows/cache_prunner.yaml
 
-      - name: Install dependencies
-        run: flutter pub get
-        working-directory: ${{ env.working-directory }}
+  flutter_analyzer:
+    uses: ./.github/workflows/flutter_analyzer.yaml
 
-      - name: Verify formatting
-        run: dart format --output=none --set-exit-if-changed .
-        working-directory: ${{ env.working-directory }}
-
-      - name: Analyze project source
-        run: flutter analyze
-        working-directory: ${{ env.working-directory }}
-
-      - name: Run tests
-        run: flutter test
-        working-directory: ${{ env.working-directory }}
+  spell_checker:
+    uses: ./.github/workflows/spell_checker.yaml
