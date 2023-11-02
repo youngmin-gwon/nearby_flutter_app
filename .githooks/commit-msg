@@ -2,9 +2,9 @@
 
 # Commit Convention 체크
 MESSAGE=$(cat "$1")
-COMMITFORMAT="(feat|fix|docs|style|refactor|design|comment|rename|remove|test|chore|init|ci): (.*)"
+COMMIT_FORMAT="(feat|fix|docs|style|refactor|design|comment|rename|remove|test|chore|init|ci): (.*)"
 
-if ! [[ ${MESSAGE} =~ ${COMMITFORMAT} ]]; then
+if ! [[ ${MESSAGE} =~ ${COMMIT_FORMAT} ]]; then
 	echo ""
 	echo " Commit Message 포맷을 아래 예시와 같이 지켜주세요."
 	echo " 사용가능한 commit의 Prefix는 아래와 같습니다."
