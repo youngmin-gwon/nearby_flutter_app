@@ -6,7 +6,7 @@ permissions:
 on: workflow_call
 
 jobs:
-  ## 현재 branch 에서 pubspec.lock 값과 맞는 cache 만 남기고 나머지 삭제
+  ## 현재 branch 에서 pubspec.lock 의 hash 값과 맞는 cache 만 남기고 나머지 삭제
   clear-cache:
     runs-on: ${{ matrix.os }}
     strategy:

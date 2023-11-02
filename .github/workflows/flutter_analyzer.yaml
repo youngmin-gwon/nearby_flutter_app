@@ -6,7 +6,7 @@ permissions:
 on: workflow_call
 
 jobs:
-  flutter_ci:
+  flutter_analyzer:
     name: Flutter source code analyzer on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     env:

@@ -9,7 +9,7 @@ jobs:
   cache_trimmer:
     uses: ./.github/workflows/cache_prunner.yaml
 
-  flutter_code_checker:
+  flutter_analyzer:
     uses: ./.github/workflows/flutter_analyzer.yaml
 
   spell_checker:

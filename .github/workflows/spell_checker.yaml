@@ -32,7 +32,7 @@ on:
         default: .
 
 jobs:
-  flutter_analyzer:
+  english_spell_checker:
     defaults:
       run:
         working-directory: ${{inputs.working_directory}}
